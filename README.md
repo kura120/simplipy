@@ -196,7 +196,7 @@ simplipy requires the following (all included with WPILib):
 ### Project Structure
 
 ```
-pre-season-2026/
+your_project/
 ├── simplipy/               # Main library package
 │   ├── components/         # Robot subsystem components
 │   ├── utils/              # Utilities (config, errors, logging)
@@ -355,3 +355,4 @@ If you're new to FRC programming:
 > Before any questions, yes I made most of this, yes I had help from the internet here and there, yes I used AI in extremely complex parts I needed help with. (Used all my available tools..)
 
 simplipy is designed to simplify FRC robot programming by providing a clean, configuration-based interface over WPILib's powerful but complex framework.
+
