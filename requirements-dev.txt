@@ -1,0 +1,19 @@
+# Development dependencies for simplipy
+# Install with: pip install -r requirements-dev.txt
+
+# Linting
+flake8>=6.0.0
+pylint>=2.15.0
+mypy>=1.0.0
+
+# Code formatting
+black>=23.0.0
+
+# Security
+bandit>=1.7.0
+safety>=2.3.0
+
+# Testing (if you add tests)
+pytest>=7.0.0
+pytest-cov>=4.0.0
+
