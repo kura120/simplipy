@@ -47,7 +47,7 @@ jobs:
       run: |
         pip install dist/*.whl
         # Verify package is installed (check metadata without importing)
-        python -c 'from importlib.metadata import version; print(f"✓ simplipy {version(\"simplipy\")} installed successfully")' || python -c 'import pkg_resources; print(f"✓ simplipy {pkg_resources.get_distribution(\"simplipy\").version} installed successfully")'
+        python -c 'from importlib.metadata import version; pkg="simplipy"; print(f"✓ simplipy {version(pkg)} installed successfully")' || python -c 'import pkg_resources; pkg="simplipy"; print(f"✓ simplipy {pkg_resources.get_distribution(pkg).version} installed successfully")'
         # Try to import (may fail without WPILib, but that's OK for CI)
         python -c "import simplipy; print('✓ simplipy imported successfully')" || echo "Note: Full import requires WPILib, but package installed correctly"
     
@@ -57,7 +57,7 @@ jobs:
         pip uninstall -y simplipy || true
         pip install .
         # Verify package is installed
-        python -c 'from importlib.metadata import version; print(f"✓ Installation from source works (version {version(\"simplipy\")})")' || python -c 'import pkg_resources; print(f"✓ Installation from source works (version {pkg_resources.get_distribution(\"simplipy\").version})")'
+        python -c 'from importlib.metadata import version; pkg="simplipy"; print(f"✓ Installation from source works (version {version(pkg)})")' || python -c 'import pkg_resources; pkg="simplipy"; print(f"✓ Installation from source works (version {pkg_resources.get_distribution(pkg).version})")'
         # Try to import (may fail without WPILib)
         python -c "import simplipy; print('✓ simplipy imported successfully')" || echo "Note: Full import requires WPILib, but package installed correctly"
 
