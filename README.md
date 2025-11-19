@@ -165,9 +165,11 @@ simplipy provides foundational components for FRC robots:
 
 ### Actuator Components
 - **Pneumatics**: Solenoids and compressors
+
   > [!WARNING]
   > Pneumatics component is WIP (Work In Progress). It may not work correctly. Use at your own risk and test thoroughly on hardware.
 - **Servos**: Precise positioning control
+
   > [!WARNING]
   > Servo component is WIP (Work In Progress). It may not work correctly. Use at your own risk and test thoroughly on hardware.
 
@@ -356,7 +358,7 @@ For detailed documentation, see [simplipy/README.md](simplipy/README.md) which i
 
 ## License
 
-Part of Pre-Season 2026 project.
+[MIT](https://github.com/kura120/simplipy/blob/main/LICENSE)
 
 ## Important Notes
 
