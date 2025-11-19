@@ -47,9 +47,18 @@ jobs:
       run: |
         pip install dist/*.whl
         # Verify package is installed (check metadata without importing)
-        python -c "try: from importlib.metadata import version; print(f'✓ simplipy {version(\"simplipy\")} installed successfully'); except ImportError: import pkg_resources; print(f'✓ simplipy {pkg_resources.get_distribution(\"simplipy\").version} installed successfully')"
+        python << 'EOF'
+        try:
+            from importlib.metadata import version
+            v = version('simplipy')
+            print(f'✓ simplipy {v} installed successfully')
+        except ImportError:
+            import pkg_resources
+            v = pkg_resources.get_distribution('simplipy').version
+            print(f'✓ simplipy {v} installed successfully')
+        EOF
         # Try to import (may fail without WPILib, but that's OK for CI)
-        python -c "import simplipy; print(f'✓ simplipy {simplipy.__version__} imported successfully')" || echo "Note: Full import requires WPILib, but package installed correctly"
+        python -c "import simplipy; print('✓ simplipy imported successfully')" || echo "Note: Full import requires WPILib, but package installed correctly"
     
     - name: Test GitHub installation (simulated)
       run: |
@@ -57,9 +66,18 @@ jobs:
         pip uninstall -y simplipy || true
         pip install .
         # Verify package is installed
-        python -c "try: from importlib.metadata import version; print(f'✓ Installation from source works (version {version(\"simplipy\")})'); except ImportError: import pkg_resources; print(f'✓ Installation from source works (version {pkg_resources.get_distribution(\"simplipy\").version})')"
+        python << 'EOF'
+        try:
+            from importlib.metadata import version
+            v = version('simplipy')
+            print(f'✓ Installation from source works (version {v})')
+        except ImportError:
+            import pkg_resources
+            v = pkg_resources.get_distribution('simplipy').version
+            print(f'✓ Installation from source works (version {v})')
+        EOF
         # Try to import (may fail without WPILib)
-        python -c "import simplipy; print(f'✓ simplipy imported successfully')" || echo "Note: Full import requires WPILib, but package installed correctly"
+        python -c "import simplipy; print('✓ simplipy imported successfully')" || echo "Note: Full import requires WPILib, but package installed correctly"
 
   validate-syntax:
     name: Validate Python Syntax

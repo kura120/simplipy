@@ -31,8 +31,17 @@ jobs:
         # We use the current repo URL - in real usage this would be the GitHub URL
         pip install git+https://github.com/${{ github.repository }}.git@${{ github.ref_name }}
         # Verify package is installed (check metadata without importing)
-        python -c "try: from importlib.metadata import version; print(f'✓ simplipy {version(\"simplipy\")} installed from GitHub'); except ImportError: import pkg_resources; print(f'✓ simplipy {pkg_resources.get_distribution(\"simplipy\").version} installed from GitHub')"
+        python << 'EOF'
+        try:
+            from importlib.metadata import version
+            v = version('simplipy')
+            print(f'✓ simplipy {v} installed from GitHub')
+        except ImportError:
+            import pkg_resources
+            v = pkg_resources.get_distribution('simplipy').version
+            print(f'✓ simplipy {v} installed from GitHub')
+        EOF
         # Try to import (may fail without WPILib, but that's OK - package installed correctly)
-        python -c "import simplipy; print(f'✓ simplipy {simplipy.__version__} imported successfully')" || echo "Note: Full import requires WPILib dependencies, but package installed correctly"
+        python -c "import simplipy; print('✓ simplipy imported successfully')" || echo "Note: Full import requires WPILib dependencies, but package installed correctly"
         echo "✓ Package successfully installed from GitHub"
 
