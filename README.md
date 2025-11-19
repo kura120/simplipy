@@ -158,20 +158,21 @@ simplipy provides foundational components for FRC robots:
 
 ### Sensor Components
 - **Gyro/IMU**: Orientation sensing
-  > [!WARNING]
-  > Gyro component is WIP (Work In Progress). It may not work correctly. Use at your own risk and test thoroughly on hardware.
+
+> [!NOTE]
+> Gyro component is WIP (Work In Progress). It may not work correctly. Use at your own risk and test thoroughly on hardware.
 - **Encoders**: Unified encoder interface
 - **Analog Inputs**: Analog sensor interface
 
 ### Actuator Components
 - **Pneumatics**: Solenoids and compressors
 
-  > [!WARNING]
-  > Pneumatics component is WIP (Work In Progress). It may not work correctly. Use at your own risk and test thoroughly on hardware.
+> [!NOTE]
+> Pneumatics component is WIP (Work In Progress). It may not work correctly. Use at your own risk and test thoroughly on hardware.
 - **Servos**: Precise positioning control
 
-  > [!WARNING]
-  > Servo component is WIP (Work In Progress). It may not work correctly. Use at your own risk and test thoroughly on hardware.
+> [!NOTE]
+> Servo component is WIP (Work In Progress). It may not work correctly. Use at your own risk and test thoroughly on hardware.
 
 ### Control Components
 - **PID Controller**: Closed-loop control
