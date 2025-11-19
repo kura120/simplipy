@@ -1,6 +1,8 @@
-# simplipy - Simplified Python Library for FRC
+# simplipy
 
-This repository contains a Python library that simplifies robot programming for the [FIRST Robotics Competition](https://www.firstinspires.org/robotics/frc). simplipy provides a simplified, configuration-based approach to building FRC robots using [WPILib](https://github.com/wpilibsuite/allwpilib).
+simplipy is a simplified Python library for robot programming in the [FIRST Robotics Competition](https://www.firstinspires.org/robotics/frc). It provides a configuration-based approach to building FRC robots using [WPILib](https://github.com/wpilibsuite/allwpilib).
+
+This library is designed to make FRC robot programming simpler and more accessible, especially for beginners.
 
 simplipy wraps WPILib's robot framework to make robot creation as simple as:
 
@@ -86,24 +88,23 @@ Once WPILib is installed:
    - Type "WPILib: Create a new project"
    - Follow the wizard to create your robot project
 
-2. **Copy simplipy to Your Project**
-   - Copy the entire `simplipy` folder from this repository
-   - Paste it into your robot project's root directory
-   - Your project structure should look like:
-     ```
-     my-robot-project/
-     ├── simplipy/         # simplipy library (copied here)
-     ├── robot.py          # Your robot code
-     └── ...
-     ```
+2. **Install simplipy**
+
+   Install simplipy using pip:
+   ```bash
+   # Install from GitHub (recommended for latest version)
+   pip install git+https://github.com/kura120/simplify.git
+   ```
+
+   Or if published to PyPI (soon?):
+   ```bash
+   pip install simplipy
+   ```
 
 3. **Import simplipy in Your Code**
    ```python
    from simplipy import SimpliPyRobot, RobotConfig
    ```
-
-> [!WARNING]
-> Do not modify files inside the `simplipy` folder unless you know what you're doing. Changes may break the library or cause unexpected behavior.
 
 ## Quick Start
 
@@ -196,30 +197,34 @@ simplipy requires the following (all included with WPILib):
 ### Project Structure
 
 ```
-your_project/
+simplipy/
 ├── simplipy/               # Main library package
 │   ├── components/         # Robot subsystem components
 │   ├── utils/              # Utilities (config, errors, logging)
-│   ├── main.py            # Core robot factory
-│   └── example_*.py       # Example implementations
+│   └── main.py            # Core robot factory
+├── examples/               # Example robot implementations
+│   ├── example_simple.py  # Simplest usage example
+│   └── example_robot.py   # Inheritance-based example
 ├── .github/                # GitHub workflows and templates
-│   ├── workflows/         # CI/CD pipelines
-│   └── ISSUE_TEMPLATE/    # Issue templates
+│   └── workflows/         # CI/CD pipelines
 ├── setup.py               # Python package setup
 ├── pyproject.toml         # Modern Python project config
-└── README.md              # This file
+├── MANIFEST.in            # Package manifest
+├── README.md              # This file
+└── LICENSE                # MIT License
 ```
 
 ### CI/CD
 
-This project uses GitHub Actions for continuous integration:
+This project uses GitHub Actions for continuous integration. See `.github/workflows/` for workflow definitions.
 
-- **Linting**: Code quality checks with flake8, pylint, and mypy
-- **Syntax Testing**: Validates Python syntax
-- **Code Quality**: Security scanning and dependency checks
-- **Release Automation**: Automated release package creation
+The CI pipeline includes:
 
-See `.github/workflows/` for workflow definitions.
+- **Package Build Testing**: Tests that the package can be built on Python 3.8-3.11
+- **Installation Testing**: Verifies the package can be installed from GitHub
+- **Syntax Validation**: Checks all Python files have valid syntax
+- **Linting**: Code quality checks with flake8 and pylint
+- **Manifest Validation**: Ensures all necessary files are included in the package
 
 ### Contributing
 
@@ -228,40 +233,68 @@ See `.github/workflows/` for workflow definitions.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
 
-### Building/Testing
+### Building simplipy
+
+> [!WARNING]
+> It is not recommended for users to build their own copy of simplipy. Instead, you should use our prebuilt packages that are available via pip installation from GitHub. See [Installation](#installation) for details.
+
+simplipy is a pure Python library. The package can be built like any standard Python package:
+
+```bash
+# Install build tools
+pip install build wheel
+
+# Build the package
+python -m build --sdist --wheel
+```
+
+The resulting wheels and source distributions will be in the `dist/` directory and can be installed using `pip`.
+
+### Development Environment
+
+To set up a development environment for contributing to simplipy:
+
+1. **Install development dependencies:**
+   ```bash
+   pip install -r requirements-dev.txt
+   ```
+
+2. **Install simplipy in editable mode:**
+   ```bash
+   pip install -e .
+   ```
+
+   This allows you to edit the source code and see changes immediately without reinstalling.
+
+3. **For pure Python development:**
+   You can edit files in the `simplipy/` directory in-place, and changes will take effect immediately (no rebuild needed).
+
+> [!NOTE]
+> simplipy is pure Python, so there's no compilation step. Changes to Python files take effect immediately after saving.
+
+### Testing
 
 > [!WARNING]
 > simplipy is designed to run on the RoboRIO (robot hardware) or in simulation. Some features may not work correctly when testing on a regular computer without robot hardware connected.
 
-simplipy is a pure Python library and doesn't require building. To test:
+To test simplipy:
 
-1. Ensure you have WPILib Python environment set up (see Installation section)
-2. Copy simplipy to your robot project
-3. Import and use as shown in examples
+1. Ensure you have WPILib Python environment set up (see [Installation](#installation))
+2. Install simplipy: `pip install git+https://github.com/kura120/simplify.git`
+3. Import and use as shown in [Examples](#examples)
 4. Deploy to your robot or use simulation to test
 
-For development:
-
-```bash
-pip install -r requirements-dev.txt
-```
-
-> [!WARNING]
-> Only install development dependencies if you plan to modify simplipy. Regular users do not need these.
-
-### Installation from Source
-
-```bash
-git clone https://github.com/yourusername/pre-season-2026.git
-cd pre-season-2026
-# Copy simplipy folder to your robot project
-```
 
 ## Examples
 
-See the `simplipy/` directory for complete examples:
+See the `examples/` directory for complete examples:
 - `example_simple.py`: Simplest usage with `SimpliPyRobot(config)`
 - `example_robot.py`: Traditional inheritance approach
+
+To use the examples:
+1. Copy the example file to your robot project
+2. Adjust CAN IDs and configuration to match your hardware
+3. Deploy and test
 
 ## Documentation
 
@@ -288,16 +321,9 @@ For detailed documentation, see [simplipy/README.md](simplipy/README.md) which i
 #### "ModuleNotFoundError: No module named 'simplipy'"
 
 **Solution:**
-1. Make sure you copied the `simplipy` folder into your robot project directory
-2. Check that the folder is named exactly `simplipy` (case-sensitive)
-3. Verify the folder structure:
-   ```
-   your-robot-project/
-   ├── simplipy/     ← Must be here
-   │   ├── __init__.py
-   │   └── ...
-   └── robot.py
-   ```
+1. Make sure you're using the correct Python environment (WPILib Python)
+2. Reinstall simplipy: `pip install git+https://github.com/kura120/simplify.git`
+3. Verify installation: `python -c "import simplipy; print(simplipy.__version__)"`
 
 #### "Motor not responding" or "CAN timeout"
 

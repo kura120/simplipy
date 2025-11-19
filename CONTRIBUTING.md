@@ -4,12 +4,34 @@ Thank you for your interest in contributing to simplipy! This document provides 
 
 ## Development Setup
 
-1. Fork the repository
-2. Clone your fork
-3. Create a branch for your changes
-4. Make your changes
-5. Test your changes
-6. Submit a pull request
+1. **Fork and clone the repository:**
+   ```bash
+   git clone https://github.com/kura120/simplify.git
+   cd simplify
+   ```
+
+2. **Install development dependencies:**
+   ```bash
+   pip install -r requirements-dev.txt
+   ```
+
+3. **Install simplipy in editable mode:**
+   ```bash
+   pip install -e .
+   ```
+   
+   This allows you to edit the source code and see changes immediately without reinstalling.
+
+4. **Create a branch for your changes:**
+   ```bash
+   git checkout -b your-feature-branch
+   ```
+
+5. **Make your changes** - Since simplipy is pure Python, you can edit files directly and changes take effect immediately.
+
+6. **Test your changes** - Ensure all tests pass and examples still work.
+
+7. **Submit a pull request** - Push your branch and create a PR on GitHub.
 
 ## Code Style
 

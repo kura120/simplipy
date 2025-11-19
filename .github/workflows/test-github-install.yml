@@ -1,0 +1,35 @@
+name: Test GitHub Installation
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:  # Allow manual triggering
+
+jobs:
+  test-github-install:
+    name: Test Installation from GitHub
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.8", "3.9", "3.10", "3.11"]
+    
+    steps:
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+    - name: Install git
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y git
+    
+    - name: Test installation from GitHub
+      run: |
+        python -m pip install --upgrade pip
+        # This simulates what users would run: pip install git+https://github.com/kura120/simplify.git
+        # We use the current repo URL - in real usage this would be the GitHub URL
+        pip install git+https://github.com/${{ github.repository }}.git@${{ github.ref_name }}
+        python -c "import simplipy; print(f'✓ simplipy {simplipy.__version__} installed from GitHub')"
+        python -c "from simplipy import SimpliPyRobot, RobotConfig; print('✓ Core imports work')"
+
