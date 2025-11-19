@@ -47,16 +47,7 @@ jobs:
       run: |
         pip install dist/*.whl
         # Verify package is installed (check metadata without importing)
-        python << 'EOF'
-        try:
-            from importlib.metadata import version
-            v = version('simplipy')
-            print(f'✓ simplipy {v} installed successfully')
-        except ImportError:
-            import pkg_resources
-            v = pkg_resources.get_distribution('simplipy').version
-            print(f'✓ simplipy {v} installed successfully')
-        EOF
+        python -c 'from importlib.metadata import version; print(f"✓ simplipy {version(\"simplipy\")} installed successfully")' || python -c 'import pkg_resources; print(f"✓ simplipy {pkg_resources.get_distribution(\"simplipy\").version} installed successfully")'
         # Try to import (may fail without WPILib, but that's OK for CI)
         python -c "import simplipy; print('✓ simplipy imported successfully')" || echo "Note: Full import requires WPILib, but package installed correctly"
     
@@ -66,16 +57,7 @@ jobs:
         pip uninstall -y simplipy || true
         pip install .
         # Verify package is installed
-        python << 'EOF'
-        try:
-            from importlib.metadata import version
-            v = version('simplipy')
-            print(f'✓ Installation from source works (version {v})')
-        except ImportError:
-            import pkg_resources
-            v = pkg_resources.get_distribution('simplipy').version
-            print(f'✓ Installation from source works (version {v})')
-        EOF
+        python -c 'from importlib.metadata import version; print(f"✓ Installation from source works (version {version(\"simplipy\")})")' || python -c 'import pkg_resources; print(f"✓ Installation from source works (version {pkg_resources.get_distribution(\"simplipy\").version})")'
         # Try to import (may fail without WPILib)
         python -c "import simplipy; print('✓ simplipy imported successfully')" || echo "Note: Full import requires WPILib, but package installed correctly"
 
